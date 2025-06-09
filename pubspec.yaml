@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +18,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+  assets:
+    - assets/images/
+    - assets/images/google_logo.png
+    - assets/images/Bar INF.jpg
+    - assets/images/INF Coffee.jpg
+    - assets/images/INF Lobby.jpg
+    - assets/images/INF Mushola.jpg
+    - assets/images/INF Parkir Area.jpg
+    - assets/images/INF Social Space.jpg
+    - assets/images/INF Toilet.jpg
