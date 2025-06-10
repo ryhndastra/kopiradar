@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart'; // Pastikan file login.dart ada
+import 'package:kopiradar/auth/login.dart';
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
@@ -14,7 +14,6 @@ class Signup extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo
               Image.asset('assets/images/logo.png', width: 120),
               const SizedBox(height: 20),
 
@@ -24,7 +23,6 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Name
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Name',
@@ -37,7 +35,6 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Email
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -50,7 +47,6 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Phone Number
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
@@ -65,7 +61,6 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Password
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -79,7 +74,6 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Confirm Password
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -93,13 +87,12 @@ class Signup extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Sign Up Button
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Tambahkan logika signup di sini
+                    // SignUp logic
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -119,7 +112,6 @@ class Signup extends StatelessWidget {
               const Text('Or sign up with'),
               const SizedBox(height: 12),
 
-              // Google Sign-In Button
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -141,13 +133,12 @@ class Signup extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Tambahkan fungsi Google Sign-In
+                    // Google logic
                   },
                 ),
               ),
               const SizedBox(height: 24),
 
-              // Already have account
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
