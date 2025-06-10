@@ -14,7 +14,6 @@ class _DetailPageState extends State<DetailPage> {
   final String fullDescription =
       "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk the foam of which must be thick and compact. The right balance between espresso, steamed milk, and foam makes a proper cappuccino. Originating in Italy, cappuccino has become a globally beloved beverage.";
 
-  // Ganti URL ini ke lokasi Google Maps yang kamu inginkan
   final String mapsUrl = 'https://www.google.com/maps/place/Infokom+Coffee';
 
   Future<void> _launchMaps() async {
@@ -42,7 +41,7 @@ class _DetailPageState extends State<DetailPage> {
           const SizedBox(height: 4),
 
           Transform.scale(
-            scale: 0.9, // Perkecil ukuran ke 90%
+            scale: 0.9,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
@@ -55,7 +54,6 @@ class _DetailPageState extends State<DetailPage> {
 
           const SizedBox(height: 20),
 
-          // Title & subtitle
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -72,7 +70,6 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Rating
                 Row(
                   children: const [
                     Icon(Icons.star, color: Colors.amber, size: 20),
@@ -93,7 +90,6 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 const SizedBox(height: 8),
 
-                // Description with Read More
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -126,7 +122,6 @@ class _DetailPageState extends State<DetailPage> {
 
           const Spacer(),
 
-          // Tombol bawah
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
