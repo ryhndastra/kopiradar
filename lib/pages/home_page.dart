@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'detail.dart'; // Pastikan file detail.dart ada
+import 'package:kopiradar/pages/detail.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                // Header
                 Container(
                   height: 180,
                   decoration: const BoxDecoration(
@@ -115,7 +114,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                // Hero Image (tetap di top: 100)
                 Positioned(
                   top: 100,
                   left: MediaQuery.of(context).size.width / 2 - 160,
@@ -159,7 +157,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                // Logout Dropdown (diletakkan paling akhir agar berada di atas semuanya)
                 if (showLogout)
                   Positioned(
                     top: 80,
@@ -191,12 +188,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
 
-            const SizedBox(height: 100), // Supaya image tidak ketimpa
+            const SizedBox(height: 100),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  // Tombol HOME
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -228,7 +224,6 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        // arahkan ke halaman detail atau jalankan fungsi buka maps
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -257,7 +252,6 @@ class _HomePageState extends State<HomePage> {
 
                   const SizedBox(width: 8),
 
-                  // Icon camera
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -279,7 +273,6 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 20),
 
-            // Grid Cards
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.builder(
