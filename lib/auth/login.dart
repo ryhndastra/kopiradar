@@ -15,7 +15,6 @@ class Login extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo
               Image.asset('assets/images/logo.png', width: 120),
               const SizedBox(height: 20),
 
@@ -25,7 +24,6 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // Email
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -38,7 +36,6 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Password
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -52,7 +49,6 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Sign In Button
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -64,7 +60,7 @@ class Login extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFB95329), // warna kopi
+                    backgroundColor: const Color(0xFFB95329),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -80,13 +76,12 @@ class Login extends StatelessWidget {
               const Text('Or sign up with'),
               const SizedBox(height: 12),
 
-              // Google Sign-In Button
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: OutlinedButton.icon(
                   icon: Image.asset(
-                    'assets/images/google_logo.png', // pastikan kamu punya icon Google
+                    'assets/images/google_logo.png',
                     width: 24,
                     height: 24,
                   ),
@@ -102,13 +97,12 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Tambahkan integrasi Google Sign-In di sini
+                    // google logic
                   },
                 ),
               ),
               const SizedBox(height: 24),
 
-              // Sign Up Text
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -122,9 +116,7 @@ class Login extends StatelessWidget {
                     },
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(
-                        color: Color(0xFFB85C38), // warna senada tombol
-                      ),
+                      style: TextStyle(color: Color(0xFFB85C38)),
                     ),
                   ),
                 ],
