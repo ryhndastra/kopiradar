@@ -14,7 +14,8 @@ class _DetailPageState extends State<DetailPage> {
   final String fullDescription =
       "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk the foam of which must be thick and compact. The right balance between espresso, steamed milk, and foam makes a proper cappuccino. Originating in Italy, cappuccino has become a globally beloved beverage.";
 
-  final String mapsUrl = 'https://www.google.com/maps/place/Infokom+Coffee';
+  final String mapsUrl =
+      'https://maps.app.goo.gl/FjjWJ9VfQd2uxTfZA?g_st=com.google.maps.preview.copy';
 
   Future<void> _launchMaps() async {
     if (await canLaunchUrl(Uri.parse(mapsUrl))) {
