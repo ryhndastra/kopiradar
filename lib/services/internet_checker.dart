@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:kopiradar/pages/no_internet_page.dart';
-import 'package:kopiradar/main.dart'; // untuk akses navigatorKey
+import 'package:kopiradar/main.dart';
 
 class InternetChecker extends StatefulWidget {
   final Widget child;
@@ -21,7 +21,9 @@ class _InternetCheckerState extends State<InternetChecker> {
   void initState() {
     super.initState();
     _checkInitialConnection();
-    _subscription = Connectivity().onConnectivityChanged.listen(_onConnectionChange);
+    _subscription = Connectivity().onConnectivityChanged.listen(
+      _onConnectionChange,
+    );
   }
 
   void _checkInitialConnection() async {

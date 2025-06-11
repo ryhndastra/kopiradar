@@ -28,13 +28,11 @@ class _SplashscreenState extends State<Splashscreen> {
     final user = _auth.currentUser;
 
     if (user != null) {
-      // User sudah login, arahkan ke homepage
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
-      // User belum login, arahkan ke login page
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Login()),

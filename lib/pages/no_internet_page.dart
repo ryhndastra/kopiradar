@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:kopiradar/main.dart'; // untuk akses navigatorKey
+import 'package:kopiradar/main.dart';
 
 class NoInternetPage extends StatefulWidget {
   const NoInternetPage({super.key});

@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         setState(() => _isLoading = false);
-        return; // User canceled the login
+        return;
       }
 
       final GoogleSignInAuthentication googleAuth =
@@ -77,7 +77,6 @@ class _LoginState extends State<Login> {
       final user = userCredential.user;
 
       if (user != null) {
-        // Simpan ke Firestore jika belum ada
         final userDoc = FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid);

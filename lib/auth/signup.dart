@@ -75,7 +75,7 @@ class _SignupState extends State<Signup> {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         setState(() => _isLoading = false);
-        return; // User canceled
+        return;
       }
 
       final GoogleSignInAuthentication googleAuth =

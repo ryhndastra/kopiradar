@@ -38,7 +38,6 @@ class _DetailPageState extends State<DetailPage> {
       ),
       body: Column(
         children: [
-          // Gambar
           const SizedBox(height: 4),
 
           Transform.scale(
