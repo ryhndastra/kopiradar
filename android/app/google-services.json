@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "258140062461",
+    "project_id": "radarkopi-bd6ad",
+    "storage_bucket": "radarkopi-bd6ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258140062461:android:fe042e68fbee275d1ef494",
+        "android_client_info": {
+          "package_name": "com.example.kopiradar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3TKPq_V2KRw9newXOC_MCL9QTbqBx3OI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

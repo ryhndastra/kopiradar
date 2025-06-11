@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kopiradar/pages/detail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kopiradar/auth/login.dart';
+import 'package:kopiradar/pages/qr_scanner_page.dart';
+import 'package:kopiradar/pages/user_settings.dart';
+import 'package:kopiradar/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +18,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool showLogout = false;
   bool isHome = true;
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+  }
+
+  Future<void> fetchUserName() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+      if (snapshot.exists && snapshot.data()!.containsKey('name')) {
+        userProvider.setName(snapshot.data()!['name']);
+      } else {
+        userProvider.setName(user.email ?? 'User');
+      }
+    }
+  }
 
   final List<Map<String, String>> cards = [
     {
@@ -75,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -85,11 +115,13 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 12,
                                   ),
                                 ),
-                                Text(
-                                  'Anjaz Dotulung',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
+                                Consumer<UserProvider>(
+                                  builder: (context, userProvider, _) => Text(
+                                    userProvider.name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -173,14 +205,49 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: GestureDetector(
-                          onTap: () {
-                            // TODO: implement logout
-                          },
-                          child: const Text(
-                            "Logout",
-                            style: TextStyle(color: Colors.black),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const UserSettingsPage(),
+                                  ),
+                                );
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "User Settings",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                await FirebaseAuth.instance.signOut();
+                                if (context.mounted) {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const Login(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                }
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  "Logout",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -252,20 +319,30 @@ class _HomePageState extends State<HomePage> {
 
                   const SizedBox(width: 8),
 
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF6F6F6),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const QRScannerPage(),
                         ),
-                      ],
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF6F6F6),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(Icons.camera_alt_outlined),
                     ),
-                    child: const Icon(Icons.camera_alt_outlined),
                   ),
                 ],
               ),

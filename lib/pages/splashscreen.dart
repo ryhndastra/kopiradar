@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kopiradar/auth/login.dart';
+import 'package:kopiradar/pages/home_page.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -10,20 +12,34 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
+  final _auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
+    _checkLoginStatus();
+  }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 3), () {
-        if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const Login()),
-          );
-        }
-      });
-    });
+  void _checkLoginStatus() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    final user = _auth.currentUser;
+
+    if (user != null) {
+      // User sudah login, arahkan ke homepage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } else {
+      // User belum login, arahkan ke login page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    }
   }
 
   @override
