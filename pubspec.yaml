@@ -21,6 +21,10 @@ dependencies:
   provider: ^6.1.5
   google_sign_in: ^6.1.5
   connectivity_plus: ^5.0.2
+  google_maps_flutter: ^2.6.0
+  geolocator: ^10.1.0
+  http: ^0.13.6
+  flutter_polyline_points: ^1.0.0
 
 
 dev_dependencies:

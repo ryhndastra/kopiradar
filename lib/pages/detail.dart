@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'maps_page.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -13,17 +14,6 @@ class _DetailPageState extends State<DetailPage> {
 
   final String fullDescription =
       "A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85 ml of fresh milk the foam of which must be thick and compact. The right balance between espresso, steamed milk, and foam makes a proper cappuccino. Originating in Italy, cappuccino has become a globally beloved beverage.";
-
-  final String mapsUrl =
-      'https://maps.app.goo.gl/FjjWJ9VfQd2uxTfZA?g_st=com.google.maps.preview.copy';
-
-  Future<void> _launchMaps() async {
-    if (await canLaunchUrl(Uri.parse(mapsUrl))) {
-      await launchUrl(Uri.parse(mapsUrl), mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Tidak dapat membuka $mapsUrl';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +29,6 @@ class _DetailPageState extends State<DetailPage> {
       body: Column(
         children: [
           const SizedBox(height: 4),
-
           Transform.scale(
             scale: 0.9,
             child: ClipRRect(
@@ -51,9 +40,7 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -69,7 +56,6 @@ class _DetailPageState extends State<DetailPage> {
                   style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 12),
-
                 Row(
                   children: const [
                     Icon(Icons.star, color: Colors.amber, size: 20),
@@ -79,9 +65,7 @@ class _DetailPageState extends State<DetailPage> {
                     Text('(230)', style: TextStyle(color: Colors.grey)),
                   ],
                 ),
-
                 const SizedBox(height: 20),
-
                 const Divider(height: 1),
                 const SizedBox(height: 12),
                 const Text(
@@ -89,7 +73,6 @@ class _DetailPageState extends State<DetailPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -119,9 +102,7 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
           ),
-
           const Spacer(),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
@@ -147,7 +128,16 @@ class _DetailPageState extends State<DetailPage> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: _launchMaps,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MapsPage(
+                            destination: LatLng(-6.920333, 107.611542),
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFC67C4E),
                       shape: RoundedRectangleBorder(
