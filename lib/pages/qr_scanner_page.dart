@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:kopiradar/pages/success_page.dart';
 
 class QRScannerPage extends StatefulWidget {
@@ -10,39 +10,13 @@ class QRScannerPage extends StatefulWidget {
 }
 
 class _QRScannerPageState extends State<QRScannerPage> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController? controller;
   bool isScanned = false;
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    controller?.pauseCamera();
-    controller?.resumeCamera();
-  }
+  final MobileScannerController cameraController = MobileScannerController();
 
   @override
   void dispose() {
-    controller?.dispose();
+    cameraController.dispose();
     super.dispose();
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      if (!isScanned) {
-        setState(() => isScanned = true);
-        controller.pauseCamera();
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) =>
-                PaymentSuccessPage(result: scanData.code ?? 'QR tidak terbaca'),
-          ),
-        );
-      }
-    });
   }
 
   @override
@@ -50,40 +24,70 @@ class _QRScannerPageState extends State<QRScannerPage> {
     return Scaffold(
       body: Stack(
         children: [
-          QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
-            overlay: QrScannerOverlayShape(
-              borderColor: Colors.green,
-              borderRadius: 10,
-              borderLength: 30,
-              borderWidth: 8,
-              cutOutSize: MediaQuery.of(context).size.width * 0.7,
+          MobileScanner(
+            controller: cameraController,
+            onDetect: (capture) {
+              if (isScanned) return;
+
+              final List<Barcode> barcodes = capture.barcodes;
+              if (barcodes.isNotEmpty) {
+                setState(() => isScanned = true);
+                final String code =
+                    barcodes.first.rawValue ?? 'QR tidak terbaca';
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => PaymentSuccessPage(result: code),
+                  ),
+                );
+              }
+            },
+          ),
+
+          // Overlay kotak
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.width * 0.7,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.green, width: 4),
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
           ),
+
+          // Tombol back dan judul
           Positioned(
             top: MediaQuery.of(context).padding.top + 16,
             left: 16,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Row(
-                    children: const [
-                      Icon(Icons.arrow_back, color: Colors.white),
-                      SizedBox(width: 8),
-                      Text(
-                        'Scan Qris',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Row(
+                children: const [
+                  Icon(Icons.arrow_back, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Scan Qris',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+
+          // Tombol switch kamera
+          Positioned(
+            bottom: 40,
+            right: 20,
+            child: FloatingActionButton(
+              backgroundColor: Colors.white,
+              child: const Icon(Icons.cameraswitch, color: Colors.black),
+              onPressed: () => cameraController.switchCamera(),
             ),
           ),
         ],
