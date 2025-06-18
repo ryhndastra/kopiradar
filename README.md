@@ -35,7 +35,7 @@
 ## 🚀 Cara Menjalankan Aplikasi
 
 ```bash
-git clone https://github.com/username/kopiradar.git
+git clone https://github.com/ryhndastra/kopiradar.git
 cd kopiradar
 flutter pub get
 flutter run
